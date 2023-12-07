@@ -8,8 +8,6 @@ import routerCart from "./cart.route.js";
 import routerReview from "./review.route.js";
 import routerShop from "./shop.route.js";
 
-import elasticClient from "../services/elasticClient.js";
-
 const router = express.Router();
 
 // check apiKey
@@ -28,23 +26,5 @@ router.use("/mail", routerMail);
 router.use("/cart", routerCart);
 router.use("/review", routerReview);
 router.use("/shop", routerShop);
-
-router.get("/search", async (req, res) => {
-  try {
-    const searchText = req.query.query;
-    // const result = await elasticClient.helpers.search({
-    const result = await elasticClient.search({
-      index: "search-products",
-      query: { fuzzy: { name: req.query.query } },
-      size: 3,
-
-    });
-
-    res.json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
 
 export default router;
