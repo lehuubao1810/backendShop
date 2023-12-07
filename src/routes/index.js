@@ -15,7 +15,7 @@ const router = express.Router();
 // check permission
 
 router.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("API is running!");
 });
 
 router.use("/access", routerAccess);
